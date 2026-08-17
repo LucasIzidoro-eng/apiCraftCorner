@@ -1,6 +1,8 @@
 var express = require('express');
 var logger = require('morgan');
 var cors = require('cors');
+var indexRouter = require('./routes/index');
+var searchRoutes = require('./modules/search/searchRoutes');   // ADICIONE ESTA LINHA
 require('dotenv').config();
 
 var indexRouter = require('./routes/index');
@@ -11,6 +13,8 @@ var app = express();
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use('/api', indexRouter);
+app.use('/api', searchRoutes);
 
 // CORS: permite que o front-end Vue (rodando em outra origem/porta) consuma a API.
 app.use(cors({
